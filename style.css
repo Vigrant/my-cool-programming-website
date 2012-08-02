@@ -1,5 +1,4 @@
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+html, body, div, span, applet, object, iframe, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
@@ -58,7 +57,6 @@ width:100%;
 {
 	margin: auto;
 	height:100%;
-	background-image:url(file:///C|/Users/Reed/Desktop/Dream%20Tuts/designagif/background.gif);
 	width:100%;
     position: relative;
 	min-width:1023px;
