@@ -69,7 +69,7 @@ box-shadow: 0px 0px 10px rgba(0,0,0,.8);
 z-index: 100;
 }
 
-#container 
+.container 
 {
 	margin: auto;
 	padding-top: 10px;
@@ -92,7 +92,7 @@ z-index: 100;
     font-weight:100;
 }
  
-#header 
+.header 
 {
 	width: 950px;
 	height: 80px;
@@ -112,7 +112,7 @@ z-index: 100;
   box-shadow:         inset 0 0 10px rgb(38,140,130);
 }
 
-#header h1
+.header h1
 {
 	display: inline;
 	font-family: nevis;
@@ -124,7 +124,7 @@ z-index: 100;
 	top: -10px;
 }
 
-#navigation
+.navigation
 {
 	margin:auto;
 	
@@ -146,7 +146,7 @@ z-index: 100;
 	
 }
 
-.nav
+.navigation 
 {
 	font-family:nevis;
 	font-size:25px;
@@ -155,7 +155,7 @@ z-index: 100;
 }
 
 
-.nav :hover
+.navigation :hover
 {
 -moz-box-shadow:    inset 0 0 10px rgb(38,140,130);
   -webkit-box-shadow: inset 0 0 10px rgb(38,140,130);
@@ -169,10 +169,10 @@ z-index: 100;
 	-moz-border-radius-topright: 10px;
 	-webkit-border-top-left-radius: 10px;
 	-webkit-border-top-right-radius: 10px;
-cursor: default;
+   cursor: default;
 }
 
-.nav #about
+.navigation #about
 {
 	width:100px;
 	display:inline;
@@ -185,7 +185,7 @@ cursor: default;
 
 }
 
-.nav #applets
+.navigation #applets
 {
 	width:100px;
 	display:inline;
@@ -197,7 +197,7 @@ cursor: default;
 
 }
 
-.nav #projects
+.navigation #projects 
 {
 	width: 100px;
 	display: inline;
@@ -214,7 +214,7 @@ cursor: default;
 
 
 
-#mainbody
+.mainbody
 {
 	width: 900px;
 	height: 500px;
@@ -236,6 +236,35 @@ cursor: default;
 					
 }
 
+.mainbody h1
+{
+	text-align: left;
+	margin-left:155px;
+	font-size: 45px;
+	text-shadow: 0 0 0.2em rgb(255,255,255);
+	font-family: nevis;
+	display:inline;
+	position:relative;
+	top:25px;
+
+}
+
+.mainbody #skills
+{
+	margin-left:208px;
+}
+
+.mainbody p
+{
+	margin: 78px 0px 0px 100px;
+	font: 17.1px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	width: 350px;
+	height: 300px;
+	position: absolute;
+	font-size: 16px;
+	font-weight: bold;
+}
+
 #spinningThing
 {
 	margin-top:10px;
@@ -243,7 +272,7 @@ cursor: default;
 	margin-left:225px;
 }
 
-#footer
+.footer
 {
 	width: 100%;
 	height: 110px;
@@ -256,3 +285,114 @@ cursor: default;
   box-shadow:         inset 0 0 10px rgb(38,140,130);
   
 }
+
+a 
+{
+	text-decoration:none;
+	color:inherit;
+
+}
+
+/* About Page Sliding Bars */
+#skill { 
+	list-style: none;
+	font: 15px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	width: 296px;
+	margin: 48px 0px 0px 500px;
+	position: relative;
+	line-height: 2em;
+	padding: 30px 0;
+}
+
+#skill li { 
+	margin-bottom:50px; 
+	background:#e9e5e2;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#e1ddd9), to(#e9e5e2));
+	background-image: -webkit-linear-gradient(top, #e1ddd9, #e9e5e2);
+	background-image: -moz-linear-gradient(top, #e1ddd9, #e9e5e2);
+	background-image: -ms-linear-gradient(top, #e1ddd9, #e9e5e2);
+	background-image: -o-linear-gradient(top, #e1ddd9, #e9e5e2);
+	background-image: linear-gradient(top, #e1ddd9, #e9e5e2);  
+	height:20px; 
+	border-radius:10px; 
+	-moz-box-shadow: 0 1px 0px #bebbb9 inset, 0 1px 0 #fcfcfc;	 
+	-webkit-box-shadow: 0 1px 0px #bebbb9 inset, 0 1px 0 #fcfcfc;	 
+	box-shadow: 0 1px 0px #bebbb9 inset, 0 1px 0 #fcfcfc;	  
+}
+
+#skill li h3 { 
+	position:relative; 
+	top:-25px;
+}
+
+.bar { 
+	height:18px; 
+	margin:1px 2px;  
+	position:absolute;
+	border-radius:10px;
+	-moz-box-shadow: 0 1px 0px #fcfcfc inset, 0 1px 0 #bebbb9;
+	-webkit-box-shadow: 0 1px 0px #fcfcfc inset, 0 1px 0 #bebbb9;	 
+	box-shadow: 0 1px 0px #fcfcfc inset, 0 1px 0 #bebbb9;		
+}
+
+.ruby-on-rails {
+	width:50%; 
+	-moz-animation:ruby-on-rails 2s ease-out;
+	-webkit-animation:ruby-on-rails 2s ease-out;
+	background-color: #f674a4;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#f674a4), to(#e06995));
+	background-image: -webkit-linear-gradient(top, #f674a4, #e06995);
+	background-image: -moz-linear-gradient(top, #f674a4, #e06995);
+	background-image: -ms-linear-gradient(top, #f674a4, #e06995);
+	background-image: -o-linear-gradient(top, #f674a4, #e06995);
+	background-image: linear-gradient(top, #f674a4, #e06995);
+}
+
+.html-css {
+	width:45%;
+	-moz-animation:html-css 2s ease-out;
+	-webkit-animation:html-css 2s ease-out;
+	background-color: #f0bb4b;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#f0bb4b), to(#d9aa44));
+	background-image: -webkit-linear-gradient(top, #f0bb4b, #d9aa44);
+	background-image: -moz-linear-gradient(top, #f0bb4b, #d9aa44);
+	background-image: -ms-linear-gradient(top, #f0bb4b, #d9aa44);
+	background-image: -o-linear-gradient(top, #f0bb4b, #d9aa44);
+	background-image: linear-gradient(top, #f0bb4b, #d9aa44);
+}
+
+.processing {
+	width:70%;
+	-moz-animation:processing 2s ease-out;
+	-webkit-animation:processing 2s ease-out;
+	background-color: #a1ce5b;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#a1ce5b), to(#91ba52));
+	background-image: -webkit-linear-gradient(top, #a1ce5b, #91ba52);
+	background-image: -moz-linear-gradient(top, #a1ce5b, #91ba52);
+	background-image: -ms-linear-gradient(top, #a1ce5b, #91ba52);
+	background-image: -o-linear-gradient(top, #a1ce5b, #91ba52);
+	background-image: linear-gradient(top, #a1ce5b, #91ba52);
+}
+
+.javascript {
+	width:10%;
+	-moz-animation:javascript 2s ease-out;
+	-webkit-animation:javascript 2s ease-out;
+	background-color: #66b3cc;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#66b3cc), to(#5da3ba));
+	background-image: -webkit-linear-gradient(top, #66b3cc, #5da3ba);
+	background-image: -moz-linear-gradient(top, #66b3cc, #5da3ba);
+	background-image: -ms-linear-gradient(top, #66b3cc, #5da3ba);
+	background-image: -o-linear-gradient(top, #66b3cc, #5da3ba);
+	background-image: linear-gradient(top, #66b3cc, #5da3ba)	
+}
+
+@-moz-keyframes ruby-on-rails {0%  { width:0px;} 100%{ width:50%;}  }
+@-moz-keyframes html-css        { 0%  { width:0px;} 100%{ width:45%;}  }
+@-moz-keyframes processing      { 0%  { width:0px;} 100%{ width:70%;}  }
+@-moz-keyframes javascript   { 0%  { width:0px;} 100%{ width:10%;}  }
+
+@-webkit-keyframes ruby-on-rails       { 0%  { width:0px;} 100%{ width:50%;}  }
+@-webkit-keyframes html-css        { 0%  { width:0px;} 100%{ width:45%;}  }
+@-webkit-keyframes processing      { 0%  { width:0px;} 100%{ width:70%;}  }
+@-webkit-keyframes javascript   { 0%  { width:0px;} 100%{ width:10%;}  }
