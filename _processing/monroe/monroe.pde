@@ -1,11 +1,15 @@
 ArrayList shapes = new ArrayList();
+HScrollbar hs1 , hs2 , hs3;
  
 void setup()
 {
   size(450, 450, P3D);
   noStroke(); 
    
-   
+  hs1 = new HScrollbar(0, 0, width, 3, 10);
+  hs2 = new HScrollbar(0, 3, width, 3, 10);
+  hs3 = new HScrollbar(0, 6, width, 3, 10);
+
   createShapes();
 }
  
@@ -58,8 +62,22 @@ void createShapes()
  
 void draw()
 {
+  pushMatrix();
   backgroundTranslateScaleRotate();
   drawShapes();
+  popMatrix();
+  updateAndDrawScrollbars();
+}
+
+void updateAndDrawScrollbars()
+{
+ hs1.update();
+ hs1.display(); 
+ hs2.update();
+ hs2.display();
+ hs3.update();
+ hs3.display();
+
 }
  
 void backgroundTranslateScaleRotate()
@@ -77,8 +95,9 @@ void drawShapes()
  
  for(int x=0;x<shapes.size();x++)
   {
-     //   rotateY(frameCount/1000.0);
-     rotateY(frameCount/500.0);
+     rotateY(hs1.getPos()*frameCount/500000.0);
+     rotateX(frameCount*hs2.getPos()/500000.0);
+     rotateZ(hs3.getPos()*frameCount/500000.0);
     ((eightCorners)shapes.get(x)).drawShape();
   }
      
@@ -115,13 +134,13 @@ class eightCorners
   corners(2);
   corners(6);
   corners(7);
-  fill(0,0,0);
+  fill(0,0,0,0);
   // +Y "bottom"
   corners(4);
   corners(5);
   corners(7);
   corners(6);
-  fill(0,0,0);
+  fill(0,0,0,0);
   // -Y "top" face
   corners(2);
   corners(3);
@@ -161,6 +180,81 @@ class eightCorners
      
   }
    
+}
+
+class HScrollbar
+{
+  int swidth, sheight;    // width and height of bar
+  int xpos, ypos;         // x and y position of bar
+  float spos, newspos;    // x position of slider
+  int sposMin, sposMax;   // max and min values of slider
+  int loose;              // how loose/heavy
+  boolean over;           // is the mouse over the slider?
+  boolean locked;
+  float ratio;
+
+  HScrollbar (int xp, int yp, int sw, int sh, int l) {
+    swidth = sw;
+    sheight = sh;
+    int widthtoheight = sw - sh;
+    ratio = (float)sw / (float)widthtoheight;
+    xpos = xp;
+    ypos = yp-sheight/2;
+    spos = xpos + swidth/2 - sheight/2;
+    newspos = spos;
+    sposMin = xpos;
+    sposMax = xpos + swidth - sheight;
+    loose = l;
+  }
+
+  void update() {
+    if(overF()) {
+      over = true;
+    } else {
+      over = false;
+    }
+    if(mousePressed && over) {
+      locked = true;
+    }
+    if(!mousePressed) {
+      locked = false;
+    }
+    if(locked) {
+      newspos = constrain(mouseX-sheight/2, sposMin, sposMax);
+    }
+    if(abs(newspos - spos) > 1) {
+      spos = spos + (newspos-spos)/loose;
+    }
+  }
+
+  int constrain(int val, int minv, int maxv) {
+    return min(max(val, minv), maxv);
+  }
+
+  boolean overF() {
+    if(mouseX > xpos && mouseX < xpos+swidth &&
+    mouseY > ypos && mouseY < ypos+sheight) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void display() {
+    fill(255);
+    rect(xpos, ypos, swidth, sheight);
+    fill(0, 0, 0);
+    rect(spos, ypos, sheight, sheight);
+    fill(0,0,0,255);
+    rect(spos, ypos, sheight, sheight);
+
+  }
+
+  float getPos() {
+    // Convert spos to be values between
+    // 0 and the total width of the scrollbar
+    return spos * ratio -width/2 +1;
+  }
 }
 
 

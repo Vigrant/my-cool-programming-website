@@ -1,12 +1,15 @@
 ArrayList shapes = new ArrayList();
-HScrollbar hs1;
+HScrollbar hs1 , hs2 , hs3;
  
 void setup()
 {
   size(450, 450, P3D);
   noStroke(); 
    
-  hs1 = new HScrollbar(0, 5, width, 10, 3*5+1);
+  hs1 = new HScrollbar(0, 0, width, 3, 16);
+  hs2 = new HScrollbar(0, 4, width, 3, 16);
+  hs3 = new HScrollbar(0, 8, width, 3, 16);
+
   createShapes();
 }
  
@@ -70,8 +73,11 @@ void updateAndDrawScrollbars()
 {
  hs1.update();
  hs1.display(); 
- fill(0, 0, 0);
- rect(hs1.spos, hs1.ypos, hs1.sheight, hs1.sheight);
+ hs2.update();
+ hs2.display();
+ hs3.update();
+ hs3.display();
+
 }
  
 void backgroundTranslateScaleRotate()
@@ -89,8 +95,9 @@ void drawShapes()
  
  for(int x=0;x<shapes.size();x++)
   {
-     //   rotateY(frameCount/1000.0);
-     rotateY(frameCount*hs1.getPos()/50000.0);
+     rotateY(hs1.getPos()*frameCount/500000.0);
+     rotateX(frameCount*hs2.getPos()/500000.0);
+     rotateZ(hs3.getPos()*frameCount/500000.0);
     ((eightCorners)shapes.get(x)).drawShape();
   }
      
@@ -127,13 +134,13 @@ class eightCorners
   corners(2);
   corners(6);
   corners(7);
-  fill(0,0,0);
+  fill(0,0,0,0);
   // +Y "bottom"
   corners(4);
   corners(5);
   corners(7);
   corners(6);
-  fill(0,0,0);
+  fill(0,0,0,0);
   // -Y "top" face
   corners(2);
   corners(3);

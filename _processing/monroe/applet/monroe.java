@@ -1,23 +1,45 @@
+import processing.core.*; 
+import processing.xml.*; 
+
+import java.applet.*; 
+import java.awt.Dimension; 
+import java.awt.Frame; 
+import java.awt.event.MouseEvent; 
+import java.awt.event.KeyEvent; 
+import java.awt.event.FocusEvent; 
+import java.awt.Image; 
+import java.io.*; 
+import java.net.*; 
+import java.text.*; 
+import java.util.*; 
+import java.util.zip.*; 
+import java.util.regex.*; 
+
+public class monroe extends PApplet {
+
 ArrayList shapes = new ArrayList();
-HScrollbar hs1;
+HScrollbar hs1 , hs2 , hs3;
  
-void setup()
+public void setup()
 {
   size(450, 450, P3D);
   noStroke(); 
    
-  hs1 = new HScrollbar(0, 5, width, 10, 3*5+1);
+  hs1 = new HScrollbar(0, 0, width, 3, 16);
+  hs2 = new HScrollbar(0, 4, width, 3, 16);
+  hs3 = new HScrollbar(0, 8, width, 3, 16);
+
   createShapes();
 }
  
-void createShapes()
+public void createShapes()
 {
   float c=1;
   for(float b=-70;b<50;b+=2)
   {
      
   float coordinates[]=new float[24];
-  float h=.5; //slope coming up
+  float h=.5f; //slope coming up
   for(int x=0;x<24;x++)
   {
     switch(x)
@@ -49,7 +71,7 @@ void createShapes()
     }
   }
    shapes.add(new eightCorners(coordinates));
-   c+=.5;
+   c+=.5f;
   }
    
    
@@ -57,7 +79,7 @@ void createShapes()
  
  
  
-void draw()
+public void draw()
 {
   pushMatrix();
   backgroundTranslateScaleRotate();
@@ -66,15 +88,18 @@ void draw()
   updateAndDrawScrollbars();
 }
 
-void updateAndDrawScrollbars()
+public void updateAndDrawScrollbars()
 {
  hs1.update();
  hs1.display(); 
- fill(0, 0, 0);
- rect(hs1.spos, hs1.ypos, hs1.sheight, hs1.sheight);
+ hs2.update();
+ hs2.display();
+ hs3.update();
+ hs3.display();
+
 }
  
-void backgroundTranslateScaleRotate()
+public void backgroundTranslateScaleRotate()
 {
   background(179,255,255);
   translate(width/2, height/2, 0);
@@ -83,14 +108,15 @@ void backgroundTranslateScaleRotate()
   scale(3);
 }
  
-void drawShapes()
+public void drawShapes()
 {
    
  
  for(int x=0;x<shapes.size();x++)
   {
-     //   rotateY(frameCount/1000.0);
-     rotateY(frameCount*hs1.getPos()/50000.0);
+     rotateY(hs1.getPos()*frameCount/500000.0f);
+     rotateX(frameCount*hs2.getPos()/500000.0f);
+     rotateZ(hs3.getPos()*frameCount/500000.0f);
     ((eightCorners)shapes.get(x)).drawShape();
   }
      
@@ -110,42 +136,42 @@ class eightCorners
    
    
    
-  void drawShape()
+  public void drawShape()
   {
  
   beginShape(QUADS);
    
-  fill(200-abs(sin(frameCount/103.0))*55 ,50+abs(sin(frameCount/197.0))*205 ,255-abs(sin(frameCount/103.0))*255);
+  fill(200-abs(sin(frameCount/103.0f))*55 ,50+abs(sin(frameCount/197.0f))*205 ,255-abs(sin(frameCount/103.0f))*255);
   // +Z "front" face
   corners(0);
   corners(1);
   corners(5);
   corners(4);
-  fill(100+abs(sin(frameCount/101.0))*155 ,200-abs(sin(frameCount/103.0))*50 ,50+abs(sin(frameCount/197.0))*200); 
+  fill(100+abs(sin(frameCount/101.0f))*155 ,200-abs(sin(frameCount/103.0f))*50 ,50+abs(sin(frameCount/197.0f))*200); 
   // -Z "back" face
   corners(3);
   corners(2);
   corners(6);
   corners(7);
-  fill(0,0,0);
+  fill(0,0,0,0);
   // +Y "bottom"
   corners(4);
   corners(5);
   corners(7);
   corners(6);
-  fill(0,0,0);
+  fill(0,0,0,0);
   // -Y "top" face
   corners(2);
   corners(3);
   corners(1);
   corners(0);
-  fill(100+abs(sin(frameCount/197.0))*155 ,200-abs(sin(frameCount/101.03))*150 ,90+abs(sin(frameCount/104.3))*160); 
+  fill(100+abs(sin(frameCount/197.0f))*155 ,200-abs(sin(frameCount/101.03f))*150 ,90+abs(sin(frameCount/104.3f))*160); 
   // +X "right" face
   corners(1);
   corners(3);
   corners(7);
   corners(5);
-  fill(255-abs(sin(frameCount/100.0))*50 +60 ,abs(sin(frameCount/197.40))*255 ,100+abs(sin(frameCount/104.3))*100); 
+  fill(255-abs(sin(frameCount/100.0f))*50 +60 ,abs(sin(frameCount/197.40f))*255 ,100+abs(sin(frameCount/104.3f))*100); 
   // -X "left" face
   corners(2);
   corners(0);
@@ -155,7 +181,7 @@ class eightCorners
   endShape();
   }
    
-  void corners(int cornerNumber)
+  public void corners(int cornerNumber)
   {
    switch(cornerNumber)
     {
@@ -200,7 +226,7 @@ class HScrollbar
     loose = l;
   }
 
-  void update() {
+  public void update() {
     if(overF()) {
       over = true;
     } else {
@@ -220,11 +246,11 @@ class HScrollbar
     }
   }
 
-  int constrain(int val, int minv, int maxv) {
+  public int constrain(int val, int minv, int maxv) {
     return min(max(val, minv), maxv);
   }
 
-  boolean overF() {
+  public boolean overF() {
     if(mouseX > xpos && mouseX < xpos+swidth &&
     mouseY > ypos && mouseY < ypos+sheight) {
       return true;
@@ -233,7 +259,7 @@ class HScrollbar
     }
   }
 
-  void display() {
+  public void display() {
     fill(255);
     rect(xpos, ypos, swidth, sheight);
     fill(0, 0, 0);
@@ -243,7 +269,7 @@ class HScrollbar
 
   }
 
-  float getPos() {
+  public float getPos() {
     // Convert spos to be values between
     // 0 and the total width of the scrollbar
     return spos * ratio -width/2 +1;
@@ -251,3 +277,7 @@ class HScrollbar
 }
 
 
+  static public void main(String args[]) {
+    PApplet.main(new String[] { "--bgcolor=#F0F0F0", "monroe" });
+  }
+}
