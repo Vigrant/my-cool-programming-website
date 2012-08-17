@@ -176,7 +176,7 @@ z-index: 100;
 {
 	width:100px;
 	display:inline;
-	margin-left:17%;
+	margin-left:16.5%;
 	position:relative;
 	top:13px;
 	padding-left:6px;
@@ -189,7 +189,7 @@ z-index: 100;
 {
 	width:100px;
 	display:inline;
-	margin-left:17%;
+	margin-left:15.5%;
 	position:relative;
 	top:13px;
 	padding-left:6px;
@@ -201,7 +201,7 @@ z-index: 100;
 {
 	width: 100px;
 	display: inline;
-	margin-left: 16%;
+	margin-left: 15.5%;
 	position: relative;
 	top: 13px;
 	overflow: visible;
@@ -284,6 +284,28 @@ z-index: 100;
 		margin-bottom:6px;
 }
 
+.mainbody #leftArrow
+{
+	position:relative;
+	display:inline;
+	margin:0px;
+	bottom:220px;
+	left:180px;
+	
+}
+
+.mainbody #rightArrow
+{
+	position:relative;
+	display:inline;
+	margin:0px;
+	bottom:220px;
+	left:7px;
+	
+}
+
+
+
 .mainbody img:hover
 {
 	-webkit-box-shadow: 0 8px 6px -6px black;
@@ -298,11 +320,11 @@ z-index: 100;
 	text-align:center;
 }
 
-#spinningThing
+#pHolder
 {
 	margin-top:10px;
 	margin-bottom:10px;
-	margin-left:225px;
+	margin-left:185px;
 }
 
 .footer
@@ -338,7 +360,7 @@ a
 }
 
 #skill li { 
-	margin-bottom:44px; 
+	margin-bottom:46px; 
 	background:#e9e5e2;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#e1ddd9), to(#e9e5e2));
 	background-image: -webkit-linear-gradient(top, #e1ddd9, #e9e5e2);
