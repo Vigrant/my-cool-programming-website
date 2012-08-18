@@ -233,6 +233,11 @@ z-index: 100;
   overflow:hidden;					
 }
 
+#homePage
+{
+	min-height:473px;
+}
+
 .mainbody h1
 {
 	text-align: left;

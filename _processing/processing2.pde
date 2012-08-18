@@ -100,47 +100,12 @@ class TexturedCube
    
   void drawCube()
   {
-  beginShape(QUADS);
    
-  fill(255*sin(frameCount/8000.0*xDisplacement*36),sin(frameCount/97.0)*abs(yDisplacement)*10,255*abs(sin(frameCount/101.0*xDisplacement)),255);
- 
-   // +Z "front" face
-  vertex(-1+xDisplacement, -1+yDisplacement,  1+zDisplacement);
-  vertex( 1+xDisplacement, -1+yDisplacement,  1+zDisplacement);
-  vertex( 1+xDisplacement,  1+yDisplacement,  1+zDisplacement);
-  vertex(-1+xDisplacement,  1+yDisplacement,  1+zDisplacement);
- 
-  // -Z "back" face
-  vertex( 1+xDisplacement, -1+yDisplacement, -1+zDisplacement);
-  vertex(-1+xDisplacement, -1+yDisplacement, -1+zDisplacement);
-  vertex(-1+xDisplacement,  1+yDisplacement, -1+zDisplacement);
-  vertex( 1+xDisplacement,  1+yDisplacement, -1+zDisplacement);
- 
-  // +Y "bottom" face
-  vertex(-1+xDisplacement,  1+yDisplacement,  1+zDisplacement);
-  vertex( 1+xDisplacement,  1+yDisplacement,  1+zDisplacement);
-  vertex( 1+xDisplacement,  1+yDisplacement, -1+zDisplacement);
-  vertex(-1+xDisplacement,  1+yDisplacement, -1+zDisplacement);
- 
-  // -Y "top" face
-  vertex(-1+xDisplacement, -1+yDisplacement, -1+zDisplacement);
-  vertex( 1+xDisplacement, -1+yDisplacement, -1+zDisplacement);
-  vertex( 1+xDisplacement, -1+yDisplacement,  1+zDisplacement);
-  vertex(-1+xDisplacement, -1+yDisplacement,  1+zDisplacement);
- 
-  // +X "right" face
-  vertex( 1+xDisplacement, -1+yDisplacement,  1+zDisplacement);
-  vertex( 1+xDisplacement, -1+yDisplacement, -1+zDisplacement);
-  vertex( 1+xDisplacement,  1+yDisplacement, -1+zDisplacement);
-  vertex( 1+xDisplacement,  1+yDisplacement,  1+zDisplacement);
- 
-  // -X "left" face
-  vertex(-1+xDisplacement, -1+yDisplacement, -1+zDisplacement);
-  vertex(-1+xDisplacement, -1+yDisplacement,  1+zDisplacement);
-  vertex(-1+xDisplacement,  1+yDisplacement,  1+zDisplacement);
-  vertex(-1+xDisplacement,  1+yDisplacement, -1+zDisplacement);
-   
-  endShape();
+  fill(10+255*sin(frameCount/8000.0*xDisplacement*36),sin(frameCount/97.0)*abs(yDisplacement)*10,255*abs(sin(frameCount/101.0*xDisplacement)),255);
+  pushMatrix();
+  translate(xDisplacement,yDisplacement,zDisplacement);
+  box(2);
+  popMatrix();
   }
    
 }

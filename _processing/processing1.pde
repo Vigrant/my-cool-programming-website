@@ -117,7 +117,7 @@ class eightCorners
  
   beginShape(QUADS);
   
-  colorPicker(1);
+  colorPicker(3);
   // +Z "front" face
   corners(0);
   corners(1);
@@ -162,15 +162,15 @@ class eightCorners
   {
    int t= x*frameCount;
    
-   if(t%5000<2500)
+   if(t%500<250)
    {
     fill(200-abs(sin(frameCount/103.0))*55 ,50+abs(sin(frameCount/197.0))*205 ,255-abs(sin(frameCount/103.0))*255);
    }
-   else if(t%5000<5000)
+   else if(t%500<500)
    {
     fill(100+abs(sin(frameCount/101.0))*155 ,200-abs(sin(frameCount/103.0))*50 ,50+abs(sin(frameCount/197.0))*200); 
    }
-   else if(t%5000<7500)
+   else if(t%500<750)
    {
     fill(100+abs(sin(frameCount/197.0))*155 ,200-abs(sin(frameCount/101.03))*150 ,90+abs(sin(frameCount/104.3))*160);  
    }

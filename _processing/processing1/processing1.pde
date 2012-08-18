@@ -1,15 +1,12 @@
 ArrayList shapes = new ArrayList();
-HScrollbar hs1 , hs2 , hs3;
+HScrollbar hs1;
  
 void setup()
 {
   size(450, 450, P3D);
   noStroke(); 
    
-  hs1 = new HScrollbar(0, 0, width, 3, 16);
-  hs2 = new HScrollbar(0, 4, width, 3, 16);
-  hs3 = new HScrollbar(0, 8, width, 3, 16);
-
+  hs1 = new HScrollbar(0, 5, width, 10, 3*5+1);
   createShapes();
 }
  
@@ -61,7 +58,9 @@ void createShapes()
  
  
 void draw()
-{
+{  
+  lights();
+  ambientLight(255, 0, 0);
   pushMatrix();
   backgroundTranslateScaleRotate();
   drawShapes();
@@ -73,10 +72,8 @@ void updateAndDrawScrollbars()
 {
  hs1.update();
  hs1.display(); 
- hs2.update();
- hs2.display();
- hs3.update();
- hs3.display();
+ fill(0,0,0);
+ rect(0,3,width,1);
 
 }
  
@@ -84,7 +81,6 @@ void backgroundTranslateScaleRotate()
 {
   background(179,255,255);
   translate(width/2, height/2, 0);
-  lights();
   shapeMode(CENTER);
   scale(3);
 }
@@ -95,9 +91,8 @@ void drawShapes()
  
  for(int x=0;x<shapes.size();x++)
   {
-     rotateY(hs1.getPos()*frameCount/500000.0);
-     rotateX(frameCount*hs2.getPos()/500000.0);
-     rotateZ(hs3.getPos()*frameCount/500000.0);
+     //   rotateY(frameCount/1000.0);
+     rotateY(frameCount*hs1.getPos()/50000.0);
     ((eightCorners)shapes.get(x)).drawShape();
   }
      
@@ -121,38 +116,38 @@ class eightCorners
   {
  
   beginShape(QUADS);
-   
-  fill(200-abs(sin(frameCount/103.0))*55 ,50+abs(sin(frameCount/197.0))*205 ,255-abs(sin(frameCount/103.0))*255);
+  
+  colorPicker(3);
   // +Z "front" face
   corners(0);
   corners(1);
   corners(5);
   corners(4);
-  fill(100+abs(sin(frameCount/101.0))*155 ,200-abs(sin(frameCount/103.0))*50 ,50+abs(sin(frameCount/197.0))*200); 
+  colorPicker(2);
   // -Z "back" face
   corners(3);
   corners(2);
   corners(6);
   corners(7);
-  fill(0,0,0,0);
+  fill(0,0,0);
   // +Y "bottom"
   corners(4);
   corners(5);
   corners(7);
   corners(6);
-  fill(0,0,0,0);
+  fill(0,0,0);
   // -Y "top" face
   corners(2);
   corners(3);
   corners(1);
   corners(0);
-  fill(100+abs(sin(frameCount/197.0))*155 ,200-abs(sin(frameCount/101.03))*150 ,90+abs(sin(frameCount/104.3))*160); 
+  colorPicker(3); 
   // +X "right" face
   corners(1);
   corners(3);
   corners(7);
   corners(5);
-  fill(255-abs(sin(frameCount/100.0))*50 +60 ,abs(sin(frameCount/197.40))*255 ,100+abs(sin(frameCount/104.3))*100); 
+  colorPicker(4);
   // -X "left" face
   corners(2);
   corners(0);
@@ -160,6 +155,30 @@ class eightCorners
   corners(6);
    
   endShape();
+  }
+  
+  
+  void colorPicker(int x)
+  {
+   int t= x*frameCount;
+   
+   if(t%500<250)
+   {
+    fill(200-abs(sin(frameCount/103.0))*55 ,50+abs(sin(frameCount/197.0))*205 ,255-abs(sin(frameCount/103.0))*255);
+   }
+   else if(t%500<500)
+   {
+    fill(100+abs(sin(frameCount/101.0))*155 ,200-abs(sin(frameCount/103.0))*50 ,50+abs(sin(frameCount/197.0))*200); 
+   }
+   else if(t%500<750)
+   {
+    fill(100+abs(sin(frameCount/197.0))*155 ,200-abs(sin(frameCount/101.03))*150 ,90+abs(sin(frameCount/104.3))*160);  
+   }
+   else
+   {
+    fill(255-abs(sin(frameCount/100.0))*50 +60 ,abs(sin(frameCount/197.40))*255 ,100+abs(sin(frameCount/104.3))*100); 
+   }
+   
   }
    
   void corners(int cornerNumber)
@@ -241,13 +260,8 @@ class HScrollbar
   }
 
   void display() {
-    fill(255);
-    rect(xpos, ypos, swidth, sheight);
-    fill(0, 0, 0);
+    fill(0,0,0);
     rect(spos, ypos, sheight, sheight);
-    fill(0,0,0,255);
-    rect(spos, ypos, sheight, sheight);
-
   }
 
   float getPos() {
