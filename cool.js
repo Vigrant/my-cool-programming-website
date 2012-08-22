@@ -1,16 +1,18 @@
 $(document).ready(function(){
 	
 	processingNumber=1;
-	maxProcessing=2;
+	maxProcessing=4;
 	
   $("#rightArrow").click(function(){
 		/*Move the number up*/
 		processingNumber+=1;
+		
 		if(processingNumber>maxProcessing)
-		processingNumber%=2;
+		processingNumber%=maxProcessing;
 		
 		$("#pHolder").remove();
 		$("#pPlacer").append('<canvas id="pHolder" data-processing-sources="_processing/processing'+processingNumber+'.pde"></canvas>');
+		
 		Processing.reload();
   });
 	
@@ -22,6 +24,7 @@ $(document).ready(function(){
 		
 		$("#pHolder").remove();
 		$("#pPlacer").append('<canvas id="pHolder" data-processing-sources="_processing/processing'+processingNumber+'.pde"></canvas>');
+		
 		Processing.reload();
   });
 	

@@ -1,9 +1,11 @@
+import processing.opengl.*;
+
 ArrayList shapes = new ArrayList();
 HScrollbar hs1;
  
 void setup()
 {
-  size(450, 450, P3D);
+  size(450, 450, OPENGL);
   noStroke(); 
    
   hs1 = new HScrollbar(0, 5, width, 10, 3*5+1);
@@ -60,7 +62,7 @@ void createShapes()
 void draw()
 {  
   lights();
-  ambientLight(255, 0, 0);
+  smooth();
   pushMatrix();
   backgroundTranslateScaleRotate();
   drawShapes();
