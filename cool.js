@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	
 	processingNumber=1;
-	maxProcessing=4;
+	maxProcessing=5;
 	
   $("#rightArrow").click(function(){
 		/*Move the number up*/
