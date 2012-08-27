@@ -1,3 +1,22 @@
+import processing.core.*; 
+import processing.xml.*; 
+
+import java.applet.*; 
+import java.awt.Dimension; 
+import java.awt.Frame; 
+import java.awt.event.MouseEvent; 
+import java.awt.event.KeyEvent; 
+import java.awt.event.FocusEvent; 
+import java.awt.Image; 
+import java.io.*; 
+import java.net.*; 
+import java.text.*; 
+import java.util.*; 
+import java.util.zip.*; 
+import java.util.regex.*; 
+
+public class processing5 extends PApplet {
+
 ArrayList elementList=new ArrayList();
 int elementSize=10;
 
@@ -6,14 +25,14 @@ int selectedElement=1;
 boolean rain=false;
 
 
-void setup()
+public void setup()
 {
   size(450,450,P3D);
   noStroke();
 }
 
 
-void draw()
+public void draw()
 {
   backgroundAndLights();
   drawSelectElements(); //Draws bottom selectors
@@ -22,13 +41,13 @@ void draw()
   selector();//Draws the pink one to know where a block will be put
 }
 
-void backgroundAndLights()
+public void backgroundAndLights()
 {
   background(179,255,255);
   lights();
 }
 
-void drawSelectElements()
+public void drawSelectElements()
 {
   pushMatrix();
   translate(25,0);
@@ -43,12 +62,12 @@ void drawSelectElements()
   popMatrix();
 }
 
-void drawElements()
+public void drawElements()
 {
  
  if(rain&&frameCount%2==0)
  {
-  int place = int(random(width-20)+5);
+  int place = PApplet.parseInt(random(width-20)+5);
   int rgbColors[]={0,0,255};
   Element tempElement = new Element(place-(place%elementSize)+elementSize/2,-10+elementSize/2,0, rgbColors,2);
   elementList.add(tempElement);
@@ -60,7 +79,7 @@ void drawElements()
   
 }
 
-void moveElements()
+public void moveElements()
 {
  if(frameCount%4==0)
  for(int x=0;x<elementList.size();x++)
@@ -93,17 +112,17 @@ class Element
    this.elementType=elementType;
    } 
    
-  int getX(){return xDisplacement;}
-  int getY(){return yDisplacement;}
-  int getZ(){return zDisplacement;}
-  void moveDown(){yDisplacement+=elementSize;}
-  int getElementType(){return elementType;}
-  void changeElementType(int x){elementType=x;}
-  void resetGens(){gensAlive=0;}
-  void changeRed(){rgbColors[0]=255;rgbColors[1]=0;rgbColors[2]=0;}
-  void changeGreen(){rgbColors[0]=0;rgbColors[1]=255;rgbColors[2]=0;}
+  public int getX(){return xDisplacement;}
+  public int getY(){return yDisplacement;}
+  public int getZ(){return zDisplacement;}
+  public void moveDown(){yDisplacement+=elementSize;}
+  public int getElementType(){return elementType;}
+  public void changeElementType(int x){elementType=x;}
+  public void resetGens(){gensAlive=0;}
+  public void changeRed(){rgbColors[0]=255;rgbColors[1]=0;rgbColors[2]=0;}
+  public void changeGreen(){rgbColors[0]=0;rgbColors[1]=255;rgbColors[2]=0;}
   
-  void drawElement()
+  public void drawElement()
   {
    gensAlive++;
    pushMatrix();
@@ -115,7 +134,7 @@ class Element
    popMatrix();
   }
   
-  void moveElement()
+  public void moveElement()
   {
     if(elementType!=1&&elementType!=3) //Water and Sand
     {
@@ -133,7 +152,7 @@ class Element
     }
     else if (elementType==1) //Fire
     {
-    if(random(1)>.6)    
+    if(random(1)>.6f)    
     for(int x=0;x<elementList.size();x++)
     {
      Element tempElement=((Element)elementList.get(x));
@@ -171,7 +190,7 @@ class Element
     }
     else if (elementType==3) //plant
     {
-    if(random(1)>.7)
+    if(random(1)>.7f)
     for(int x=0;x<elementList.size();x++)
     {
      Element tempElement=((Element)elementList.get(x));
@@ -227,7 +246,7 @@ class Element
 
 
 
-void mousePressed()
+public void mousePressed()
 {
   
   
@@ -278,7 +297,7 @@ void mousePressed()
 }
 
 
-void mouseDragged()
+public void mouseDragged()
 {
   if(mouseY<400&&mouseX<440&&mouseX>elementSize)
   {
@@ -311,7 +330,7 @@ void mouseDragged()
   
 }
 
-boolean checkOverlap(Element tempElement)
+public boolean checkOverlap(Element tempElement)
 {
   boolean overlap=false;
   for(int x=0;x<elementList.size();x++)
@@ -328,7 +347,7 @@ boolean checkOverlap(Element tempElement)
 }
 
 
-void selector()
+public void selector()
 {
  if(mouseY<400)
  {
@@ -340,7 +359,7 @@ void selector()
  }
 }
 
-void keyPressed()
+public void keyPressed()
 {
  if(key =='c')
  elementList.clear();
@@ -355,3 +374,7 @@ void keyPressed()
 }
 
 
+  static public void main(String args[]) {
+    PApplet.main(new String[] { "--bgcolor=#F0F0F0", "processing5" });
+  }
+}

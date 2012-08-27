@@ -1,6 +1,9 @@
 ArrayList elementList=new ArrayList();
-int elementSize=20;
-int selectedElement=1;
+int elementSize=10;
+
+//Which element is selected to be placed. 1=fire,2=water,3=plant,4=sand
+int selectedElement=1; 
+boolean rain=false;
 
 
 void setup()
@@ -13,7 +16,7 @@ void setup()
 void draw()
 {
   backgroundAndLights();
-  drawSelectElements();
+  drawSelectElements(); //Draws bottom selectors
   drawElements();
   moveElements();
   selector();//Draws the pink one to know where a block will be put
@@ -39,9 +42,17 @@ void drawSelectElements()
   rect(300,406,100,50);
   popMatrix();
 }
+
 void drawElements()
 {
-  
+ 
+ if(rain&&frameCount%2==0)
+ {
+  int place = int(random(width-20)+5);
+  int rgbColors[]={0,0,255};
+  Element tempElement = new Element(place-(place%elementSize)+elementSize/2,-10+elementSize/2,0, rgbColors,2);
+  elementList.add(tempElement);
+ }
  for(int x=0;x<elementList.size();x++)
  {
   ((Element)elementList.get(x)).drawElement();
@@ -51,7 +62,7 @@ void drawElements()
 
 void moveElements()
 {
- if(frameCount%10==0)
+ if(frameCount%4==0)
  for(int x=0;x<elementList.size();x++)
  {
   ((Element)elementList.get(x)).moveElement();
@@ -97,6 +108,8 @@ class Element
    gensAlive++;
    pushMatrix();
    fill(rgbColors[0],rgbColors[1],rgbColors[2]);
+   if(gensAlive>20&&elementType==1)
+   fill(rgbColors[0],rgbColors[1]+=4,rgbColors[2]);
    translate(xDisplacement,yDisplacement,zDisplacement);
    box(elementSize); 
    popMatrix();
@@ -104,21 +117,21 @@ class Element
   
   void moveElement()
   {
-    if(elementType!=1&&elementType!=3)
+    if(elementType!=1&&elementType!=3) //Water and Sand
     {
       
-    boolean moveDown=true;
+    boolean moveD=true;
     for(int x=0;x<elementList.size();x++)
     {
      if(((Element)elementList.get(x)).getY()-elementSize==getY()&&((Element)elementList.get(x)).getX()==getX())
-     moveDown=false;     
+     moveD=false;     
     }
     
-    if(moveDown&&getY()<380)
+    if(moveD&&getY()<390)
     moveDown();
     
     }
-    else if (elementType==1)
+    else if (elementType==1) //Fire
     {
     if(random(1)>.6)    
     for(int x=0;x<elementList.size();x++)
@@ -129,18 +142,21 @@ class Element
      ((Element)elementList.get(x)).changeElementType(elementType); 
      ((Element)elementList.get(x)).resetGens();
      ((Element)elementList.get(x)).changeRed();
+     break;
      }
      if(tempElement.getY()+elementSize==getY()&&tempElement.getX()==getX()&&tempElement.getElementType()==3)
      {
      ((Element)elementList.get(x)).changeElementType(elementType); 
      ((Element)elementList.get(x)).resetGens();
      ((Element)elementList.get(x)).changeRed();
+     break;
      }
      if(tempElement.getX()-elementSize==getX()&&tempElement.getY()==getY()&&tempElement.getElementType()==3)
      {
      ((Element)elementList.get(x)).changeElementType(elementType); 
      ((Element)elementList.get(x)).resetGens();
      ((Element)elementList.get(x)).changeRed();
+     break;
      }
      if(tempElement.getX()+elementSize==getX()&&tempElement.getY()==getY()&&tempElement.getElementType()==3)
      {
@@ -153,9 +169,9 @@ class Element
      if(gensAlive>50)
      elementList.remove(this); 
     }
-    else if (elementType==3)
+    else if (elementType==3) //plant
     {
-    if(random(1)>.80)
+    if(random(1)>.7)
     for(int x=0;x<elementList.size();x++)
     {
      Element tempElement=((Element)elementList.get(x));
@@ -163,25 +179,45 @@ class Element
      {
      ((Element)elementList.get(x)).changeElementType(elementType); 
      ((Element)elementList.get(x)).changeGreen();
-     
+     break;
      }
      if(tempElement.getY()+elementSize==getY()&&tempElement.getX()==getX()&&tempElement.getElementType()==2)
      {
      ((Element)elementList.get(x)).changeElementType(elementType);
-     ((Element)elementList.get(x)).changeGreen(); 
+     ((Element)elementList.get(x)).changeGreen();
+     break;
      }
      if(tempElement.getX()-elementSize==getX()&&tempElement.getY()==getY()&&tempElement.getElementType()==2)
      {
      ((Element)elementList.get(x)).changeElementType(elementType);
      ((Element)elementList.get(x)).changeGreen(); 
+     break;
      }
      if(tempElement.getX()+elementSize==getX()&&tempElement.getY()==getY()&&tempElement.getElementType()==2)
      {
      ((Element)elementList.get(x)).changeElementType(elementType);
      ((Element)elementList.get(x)).changeGreen(); 
+     break;
+     }
+     if(tempElement.getX()+elementSize==getX()&&tempElement.getY()==getY()-elementSize&&tempElement.getElementType()==2)
+     {
+     ((Element)elementList.get(x)).changeElementType(elementType);
+     ((Element)elementList.get(x)).changeGreen(); 
+     break;
+     }
+     if(tempElement.getX()-elementSize==getX()&&tempElement.getY()==getY()-elementSize&&tempElement.getElementType()==2)
+     {
+     ((Element)elementList.get(x)).changeElementType(elementType);
+     ((Element)elementList.get(x)).changeGreen(); 
+     break;
      }
     }
-  
+       if(gensAlive>50&&rgbColors[0]<139&&frameCount%10==0)
+       {
+       rgbColors[0]+=4;
+       rgbColors[2]+=2;
+       rgbColors[1]-=2;
+       }
     }
     
   }
@@ -302,6 +338,20 @@ void selector()
  box(elementSize);
  popMatrix(); 
  }
+}
+
+void keyPressed()
+{
+ if(key =='c')
+ elementList.clear();
+
+ if(key =='r')
+ {
+  rain=!rain;
+ } 
+ 
+ 
+  
 }
 
 
