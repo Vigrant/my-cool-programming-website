@@ -1,109 +1,122 @@
-import processing.opengl.*;
-
-ArrayList cubeList = new ArrayList();
-
+ArrayList cubeList=new ArrayList();
 
 void setup() 
-{
-  size(450, 450, OPENGL);
-}
+{ 
+    size(450, 450, P3D);
+    shapeMode(CENTER); 
+    noStroke();
+    createCubes();
+} 
 
+void createCubes()
+{
+ for(int x=-70;x<70;x+=10)
+ for(int z=-70;z<70;z+=10)
+ {
+   Cubes temp = new Cubes(x,0,z,10);    
+   cubeList.add(temp);  
+ }
+    
+    
+    
+}
 
 void draw() 
 {
- addCubes();
- backgroundTranslateScaleLights();
- addCubes();
+ translateRotateBackgroundLights();   
  drawCubes();
-}
-
-void backgroundTranslateScaleLights()
-{
-  background(100,150,100);
-  translate(width/2, height/2, 0);
-  scale(5);
-  lights(); 
-  rotateY(frameCount/100.0);
-  rotateX(frameCount/100.0);
-}
-
-void addCubes()
-{
-  Cube tempCube = new Cube(0,0,cubeList.size()%100);
-  cubeList.add(tempCube);
+ 
 }
 
 void drawCubes()
 {
+    
   for(int x=0;x<cubeList.size();x++)
   {
-   rotateX(frameCount/909.0);
-   rotateY(frameCount/1000.0);
+  ((Cubes)cubeList.get(x)).drawCube();
+  }
+}
 
-   ((Cube)cubeList.get(x)).drawCube(); 
+void translateRotateBackgroundLights()
+{
+    background(100,100,200);
+    translate(width/2,height/2);
+    rotateY(frameCount/100.1);
+    rotateX(PI);
+  //  directionalLight(51, 102, 126, 1, -1, 0);
+
+}
+
+class Cubes
+{
+  int xDisplacement;
+  int yDisplacement;
+  int zDisplacement;
+  float height;
+  int cubeSize;
+  int rgb[]= {255,0,255};
+   
+  Cubes(int xDisp,int yDisp,int zDisp,int cubeSize)
+  {
+   this.xDisplacement=xDisp;
+   this.yDisplacement=yDisp;
+   this.zDisplacement=zDisp;
+   this.cubeSize=cubeSize;   
+   height= int(random(-170,170));
+  }
+   
+  void drawCube()
+  {
+   
+   pushMatrix();
+   translate(xDisplacement,yDisplacement,zDisplacement);
+   fill(255,xDisplacement*2,zDisplacement*2);
+   box(cubeSize);
+   heightOfBox();
+  
+   popMatrix();
+  }
+  
+  void heightOfBox()
+  {
+    
+   if(height>0)
+   {
+     
+   float tempH=height*sin(frameCount/100.0 +zDisplacement+xDisplacement);
+   while(tempH>0)
+   {
+   if(tempH<cubeSize)
+   {
+   translate(0,tempH%cubeSize,0);
+   box(cubeSize);
+   break; 
+   }
+   translate(0,cubeSize,0);
+   box(cubeSize);  
+   tempH-=cubeSize;  
+   }
+   
+   }
+   else
+   {
+   
+   float tempH=height*abs(sin(frameCount/100.0+xDisplacement));
+   while(abs(tempH)>0)
+   {
+   if(abs(tempH)<cubeSize)
+   {
+   translate(0,-abs(tempH)%cubeSize,0);
+   box(cubeSize);
+   break; 
+   }
+   translate(0,-cubeSize,0);
+   box(cubeSize);  
+   tempH+=cubeSize;  
+   }
+     
+     
+   }
   }
   
 }
-
-
-class Cube
-{
-  
-  float xDisplacement;
-  float yDisplacement;
-  float zDisplacement;
-  
-  Cube(float xDisplacement,float yDisplacement,float zDisplacement)
-  {
-   this.xDisplacement=xDisplacement;
-   this.yDisplacement=yDisplacement;
-   this.zDisplacement=zDisplacement;
-  }
-  
-  
-  
-  void drawCube()
-  {
-  beginShape(QUADS);
-  
-  fill(abs(sin(frameCount/80.0))*255,abs(cos(frameCount/88.0))*255,abs(sin(frameCount/98.0))*255);
-   // +Z "front" face
-  vertex(-1+xDisplacement, -1+yDisplacement,  1+zDisplacement);
-  vertex( 1+xDisplacement, -1+yDisplacement,  1+zDisplacement);
-  vertex( 1+xDisplacement,  1+yDisplacement,  1+zDisplacement);
-  vertex(-1+xDisplacement,  1+yDisplacement,  1+zDisplacement);
-
-  // -Z "back" face
-  vertex( 1+xDisplacement, -1+yDisplacement, -1+zDisplacement);
-  vertex(-1+xDisplacement, -1+yDisplacement, -1+zDisplacement);
-  vertex(-1+xDisplacement,  1+yDisplacement, -1+zDisplacement);
-  vertex( 1+xDisplacement,  1+yDisplacement, -1+zDisplacement);
-
-  // +Y "bottom" face
-  vertex(-1+xDisplacement,  1+yDisplacement,  1+zDisplacement);
-  vertex( 1+xDisplacement,  1+yDisplacement,  1+zDisplacement);
-  vertex( 1+xDisplacement,  1+yDisplacement, -1+zDisplacement);
-  vertex(-1+xDisplacement,  1+yDisplacement, -1+zDisplacement);
-
-  // -Y "top" face
-  vertex(-1+xDisplacement, -1+yDisplacement, -1+zDisplacement);
-  vertex( 1+xDisplacement, -1+yDisplacement, -1+zDisplacement);
-  vertex( 1+xDisplacement, -1+yDisplacement,  1+zDisplacement);
-  vertex(-1+xDisplacement, -1+yDisplacement,  1+zDisplacement);
-
-  // +X "right" face
-  vertex( 1+xDisplacement, -1+yDisplacement,  1+zDisplacement);
-  vertex( 1+xDisplacement, -1+yDisplacement, -1+zDisplacement);
-  vertex( 1+xDisplacement,  1+yDisplacement, -1+zDisplacement);
-  vertex( 1+xDisplacement,  1+yDisplacement,  1+zDisplacement);
-
-  // -X "left" face
-  vertex(-1+xDisplacement, -1+yDisplacement, -1+zDisplacement);
-  vertex(-1+xDisplacement, -1+yDisplacement,  1+zDisplacement);
-  vertex(-1+xDisplacement,  1+yDisplacement,  1+zDisplacement);
-  vertex(-1+xDisplacement,  1+yDisplacement, -1+zDisplacement);
-  
-  
-  endShape();
-  }
-}//End cube Class
